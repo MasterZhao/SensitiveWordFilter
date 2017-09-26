@@ -45,8 +45,9 @@ public class DocDAOImple extends BaseDAO<Doc> implements DocDAO {
 	}
 
 	@Override
+	//不分页的方法获取blacklist
 	public List<Doc> getBlackList() {
-		String sql="select id,title,docpath,description from doc where docsymbol=0;";
+		String sql="select id,title,docpath,description from doc where docsymbol=0";
 		return queryForList(sql);
 	}
 
@@ -55,7 +56,6 @@ public class DocDAOImple extends BaseDAO<Doc> implements DocDAO {
 		String sql="select id from doc where docpath= ?";
 		return getSingleValue(sql, docpath);
 	}
-
 	@Override
 	public void changeSymbol(String path, Integer symbol) {
 		String sql="update doc set docsymbol=? where docpath=?";
@@ -72,6 +72,12 @@ public class DocDAOImple extends BaseDAO<Doc> implements DocDAO {
 	public void addDescription(String description,String docpath) {
 		String sql="update doc set description=? where docpath=?";
 		update(sql,description,docpath);
+	}
+
+	@Override
+	public List<Doc> getPassDoc() {
+		String sql="select id,title,docpath,description from doc where docsymbol=1";
+		return queryForList(sql);
 	}
 
 }

@@ -81,7 +81,7 @@ public class IndexService {
 		return false;
 	}
 	
-	//将创建索引的文件写入数据库
+	//在创建索引的同时，将所有创建索引的文件写入数据库
 	public void writeDocIntoDataBase() throws SolrServerException{
 		SolrQuery query=new SolrQuery();
 		query.set("q","*:*");

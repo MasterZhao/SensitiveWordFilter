@@ -27,6 +27,7 @@
 	}
 	.dropdown-menu{
 		width:100%;
+		font-size: 18px;
 	}
 
 </style>
@@ -46,16 +47,24 @@
 	<!-- 第二行导航栏 -->
  <ul class="nav nav-tabs nav-justified">
 	<li><a href="index.jsp">首页</a></li>
-	<li class="dropdown"><!-- <a href="queryServlet?method=getWordPage&pageNo=1">敏感词管理</a> -->
+	<li class="dropdown">
 	 <a class="dropdown-toggle" data-toggle="dropdown" href="">
         敏感词管理<span class="caret"></span>
         <ul class="dropdown-menu">
         <li><a href="queryServlet?method=getWordPage&pageNo=1">全部敏感词</a></li>
-        <li><a href="queryServlet?method=getStopWordPage&pageNo=1">已停用敏感词</a></li>
-        <li><a href="queryServlet?method=getStartWordPage&pageNo=1">已启用敏感词</a></li>
+        <li><a href="queryServlet?method=getWordPage&pageNo=1&wordSymbol=0">已停用敏感词</a></li>
+        <li><a href="queryServlet?method=getWordPage&pageNo=1&wordSymbol=1">已启用敏感词</a></li>
       </ul>
 	</li>
-	<li><a href="queryServlet?method=getBlackList">黑名单管理</a></li>
+	<li class="dropdown">
+	 <a class="dropdown-toggle" data-toggle="dropdown" href="">
+        资源状态管理<span class="caret"></span>
+        <ul class="dropdown-menu">
+        <li><a href="queryServlet?method=getBlackList&pageNo=1">查看黑名单</a></li>
+        <li><a href="queryServlet?method=getPassDoc&pageNo=1">查看已通过审核的资源</a></li>
+        <li><a href="queryServlet?method=getAllDoc&pageNo=1">浏览全部资源</a></li>
+      </ul>
+	</li>
 	<li><a href="#">任务日志</a></li>
 </ul>
 

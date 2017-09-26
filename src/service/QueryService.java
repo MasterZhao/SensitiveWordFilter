@@ -20,7 +20,8 @@ import dao.imple.DocDAOImple;
 import dao.imple.SenWordsDAOImple;
 
 public class QueryService {
-
+	
+	
 	HttpSolrServer server=new HttpSolrServer("http://localhost:8080/solr/collection2");
 	
 	SenWordsDAO senWordDAO=new SenWordsDAOImple();
@@ -37,12 +38,18 @@ public class QueryService {
 		Page<SenWord> page=senWordDAO.getPage(pageNo);
 		return page;
 	}
-	//getStopWordPage用作
+	//getStopWordPage用作分页展示停用的词汇
 	public Page<SenWord> getStopWordPage(int pageNo){
+		Page<SenWord> page=senWordDAO.getStopWordPage(pageNo);
+		return page;
+	}
+	
+	//getStartWordPage用于分页展示启用的词汇
+	public Page<SenWord> getStartWordPage(int pageNo){
 		Page<SenWord> page=senWordDAO.getStartWordPage(pageNo);
 		return page;
 	}
-	//查询（调用）所有启用中的敏感词
+	//查询（调用）所有启用中的敏感词,用作查询（非分页展示）
 	public List<SenWord> queryWordInUse(){
 		List<SenWord> list=senWordDAO.getWordsInUse();
 		return list;

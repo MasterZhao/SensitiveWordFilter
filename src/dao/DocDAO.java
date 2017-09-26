@@ -24,4 +24,6 @@ public interface DocDAO {
 	public abstract Integer getSymbol(String path);
 	
 	public abstract void addDescription(String description,String docpath);
+	
+	public abstract List<Doc> getPassDoc();
 }

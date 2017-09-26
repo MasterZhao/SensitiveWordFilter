@@ -55,13 +55,27 @@ public class QueryServlet extends HttpServlet {
 //		
 //	}
 	
-	//采用分页的方式显示全部敏感词
+	//采用分页的方式显示敏感词，内部做判断
 	protected void getWordPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		int pageNo=Integer.parseInt(request.getParameter("pageNo"));
-		Page<SenWord> page=queryService.getWordPage(pageNo);
+		int wordSymbol=-1;
+		Page<SenWord> page=null;
+		try{
+			wordSymbol=Integer.parseInt(request.getParameter("wordSymbol"));
+		}catch(Exception e){
+		}
+		System.out.println(wordSymbol);
+		if(wordSymbol==-1){
+			page=queryService.getWordPage(pageNo);
+		}if(wordSymbol==0){
+			page=queryService.getStopWordPage(pageNo);
+		}if(wordSymbol==1){
+			page=queryService.getStartWordPage(pageNo);
+		}
 		System.out.println(page.getList());
 		System.out.println(page.getPageNo());
 		request.setAttribute("wordpage", page);
+		request.setAttribute("wordSymbol", wordSymbol);
 		request.getRequestDispatcher("words.jsp").forward(request, response);
 		
 	}

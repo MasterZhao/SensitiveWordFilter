@@ -76,6 +76,9 @@ width:800px
 
 
 $(function(){
+	
+	var wordSymbol=$("#wordsymbol").val();
+	
 	//点击"新增敏感词"，弹出form
 	$("#newword").mouseover(function(){
 		$("#newword").css("background-color","#EEE9BF");
@@ -85,6 +88,7 @@ $(function(){
 	})
 	$("#newword").click(function(){
 		$("#new").css("display","block");
+		
 	})
 	
 	//判断格式是否符合要求
@@ -181,7 +185,7 @@ $(function(){
 			return;
 		}
 		//实现跳转
-		var href="queryServlet?method=getWordPage&pageNo="+pageNo;
+		var href="queryServlet?method=getWordPage&pageNo="+pageNo+"&wordSymbol="+wordSymbol;
 		window.location.href=href;
 	})
 });
@@ -190,7 +194,14 @@ $(function(){
 <body>
 <center>
 <br>
-<span class="title">敏感词管理</span>
+
+<span class="title">
+<c:if test="${wordSymbol==-1 }">敏感词管理</c:if>
+<c:if test="${wordSymbol==0 }">已停用敏感词</c:if>
+<c:if test="${wordSymbol==1 }">已启用敏感词</c:if>
+</span>
+
+
 <br>
 <br>
 <button id="newword">新增敏感词</button>
@@ -256,11 +267,11 @@ $(function(){
 
 <ul class="pagination">
 	<c:if test="${wordpage.hasPrev()==true }">
-		<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.getPrev() }">&laquo;</a></li>
+		<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.getPrev() }&wordSymbol=${wordSymbol}">&laquo;</a></li>
 	</c:if>
 	<li class="active"><a href="#">${wordpage.pageNo }</a></li>
 	<c:if test="${wordpage.hasNext()==true }">
-		<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.getNext() }">&raquo;</a></li>
+		<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.getNext() }&wordSymbol=${wordSymbol}">&raquo;</a></li>
 	</c:if>
 	
 </ul>
@@ -274,6 +285,8 @@ $(function(){
 			<span class="input-group-addon">页</span>
 </div>
 <br><br>
+
+<input type="hidden" id="wordsymbol" value="${wordSymbol }"/>
 </center>
 	
 </body>

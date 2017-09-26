@@ -21,7 +21,6 @@
 	.startsearch{
 		width:200px;
 		height:50px;
-		
 	}
 	.text{
 		height:25px;
@@ -40,7 +39,10 @@
 }
 	#name{
 		width:300px;
-		
+	}
+	
+	.startnow{
+		margin-left: -25px;
 	}
 </style>
 <script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>

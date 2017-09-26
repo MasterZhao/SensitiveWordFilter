@@ -89,7 +89,7 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 	@Override
 	//每页显示10条数据
 	public List<SenWord> getPageList(int pageNo) {
-		String sql="select id,word,wordsymbol,wordlevel from senword order by wordsymbol limit ?,? ";
+		String sql="select id,word,wordsymbol,wordlevel from senword limit ?,? ";
 		return queryForList(sql, (pageNo-1)*10,10);
 	}
 
