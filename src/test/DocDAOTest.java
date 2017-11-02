@@ -18,7 +18,7 @@ public class DocDAOTest {
 	
 	@Test
 	public void testGetDoc() {
-		Doc doc=docDAO.getDoc(131);
+		Doc doc=docDAO.getDoc(1624);
 		System.out.println(doc);
 		System.out.println(doc.getDescription());
 	}
@@ -50,14 +50,6 @@ public class DocDAOTest {
 	}
 	
 	@Test
-	public void testGetBlackList(){
-		List<Doc> docs=docDAO.getBlackList();
-		for(Doc doc:docs){
-			System.out.println(doc);
-		}
-	}	
-	
-	@Test
 	public void testGetId(){
 		System.out.println(docDAO.getId("示例.docx"));
 	}
@@ -70,13 +62,48 @@ public class DocDAOTest {
 	
 	@Test
 	public void testGetSymbol(){
-		Doc doc=docDAO.getDoc(131);
-		docDAO.getSymbol(doc.getDocPath());
+		Doc doc=docDAO.getDoc(1624);
+		System.out.println(doc.getDocPath());
 		System.out.println(docDAO.getSymbol(doc.getDocPath()));
 	}
 	@Test
 	public void testAddDescription(){
 		String docpath=docDAO.getDoc(131).getDocPath();
 		docDAO.addDescription("一篇示例文档", docpath);
+	}
+	
+	@Test
+	public void testGetAllDocPage(){
+		System.out.println(docDAO.getAllDocPage(1).getPageNo());
+		System.out.println(docDAO.getAllDocPage(1).getList());
+		
+		
+		System.out.println(docDAO.getAllDocPage(2).getPageNo());
+		System.out.println(docDAO.getAllDocPage(2).getList());
+	}
+	
+	@Test
+	public void testGetDocWithoutCheckPage(){
+		System.out.println(docDAO.getDocWithoutCheckPage(1).getList());
+	}
+	@Test
+	public void testGetDocByWord(){
+		System.out.println(docDAO.getDocByWord("江泽民"));
+	}
+	@Test
+	public void testGetPassDocPage(){
+		System.out.println(docDAO.getPassDocPage(1).getList());
+		
+	}
+	@Test
+	public void testDeleteDoc(){
+		String path=docDAO.getDoc(1894).getDocPath();
+		docDAO.deleteDoc(path);
+	}
+	@Test
+	public void testDeleteAll(){
+	
+		docDAO.deleteAll();
+		
 	}
 }

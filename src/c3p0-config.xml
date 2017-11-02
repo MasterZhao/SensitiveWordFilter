@@ -3,15 +3,21 @@
  <named-config name="wordfilter"> 
  
 	<property name="driverClass">com.mysql.jdbc.Driver</property>  
-    <property name="jdbcUrl">jdbc:mysql://localhost:3306/swfilter</property>  
+    <property name="jdbcUrl">jdbc:mysql://localhost:3306/swfilter?useUnicode=true&amp;characterEncoding=utf8</property>  
     <property name="user">root</property>  
-    <property name="password">ill10000</property>
+    <property name="password">123456</property>
       
-	<property name="acquireIncrement">5</property>  
+	<property name="acquireIncrement">3</property>  
 	<property name="initialPoolSize">10</property>  
-	<property name="minPoolSize">10</property>  
-	<property name="maxPoolSize">50</property><!-- intergalactoApp adopts a different approach to configuring statement caching -->  
-	<property name="maxStatements">50</property>  
-	<property name="maxStatementsPerConnection">5</property>  
+	<property name="minPoolSize">5</property>  
+	<property name="maxPoolSize">30</property><!-- intergalactoApp adopts a different approach to configuring statement caching -->  
+	<property name="maxStatements">0</property>  
+	<property name="maxStatementsPerConnection">30</property>  
+	<property name="idleConnectionTestPeriod">60</property> 
+	<property name="maxIdleTime">10</property> 
+	<property name="acquireRetryAttempts">25</property> 
+	<property name="breakAfterAcquireFailure">false</property>
+	<property name="acquireRetryDelay">1000</property>
+	<property name="idleConnectionTestPeriod">30</property>  
  </named-config>  
 </c3p0-config>

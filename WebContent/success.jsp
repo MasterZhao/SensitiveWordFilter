@@ -10,7 +10,7 @@
 <style type="text/css">
 .title{
 	font-family: "楷体";
-	color:#E9967A;
+	color:#NaNNaNNaN;
 }
 .search-form{
 	background-color: #fff;
@@ -41,7 +41,7 @@
 <center>
 <c:if test="${!empty size }">
 <h2 class="title">操作完成，索引创建成功</h2>
-<h3 class="title">共为${size }篇文章创建索引</h3>
+<h3 class="title">共导入了${size }篇文章</h3>
 </c:if>
 <c:if test="${empty size }">
 <h3>当前未新增索引</h3>

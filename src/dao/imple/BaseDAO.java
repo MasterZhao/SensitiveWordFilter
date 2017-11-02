@@ -3,9 +3,11 @@ package dao.imple;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -45,10 +47,19 @@ public BaseDAO(){
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			JDBCUtils.release(resultSet,preparedStatement);
-			JDBCUtils.release(connection);
+			try {
+				JDBCUtils.release(resultSet,preparedStatement);
+			} catch (Exception e2) {
+			}finally{
+				JDBCUtils.release(connection);
+				try {
+					DbUtils.close(connection);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
-		
 		return id;
 	}
 
@@ -64,6 +75,12 @@ public BaseDAO(){
 		}
 		finally{
 			JDBCUtils.release(connection);
+			try {
+				DbUtils.close(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -78,6 +95,12 @@ public BaseDAO(){
 			e.printStackTrace();
 		}finally{
 			JDBCUtils.release(connection);
+			try {
+				DbUtils.close(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return null;
@@ -94,6 +117,12 @@ public BaseDAO(){
 			e.printStackTrace();
 		}finally{
 			JDBCUtils.release(connection);
+			try {
+				DbUtils.close(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}	
 		return null;
 	}
@@ -108,6 +137,12 @@ public BaseDAO(){
 			e.printStackTrace();
 		}finally{
 			JDBCUtils.release(connection);
+			try {
+				DbUtils.close(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		System.out.println("ÒÑ¾­Ö´ÐÐ");
 		return null;
@@ -123,6 +158,12 @@ public BaseDAO(){
 			e.printStackTrace();
 		}finally{
 			JDBCUtils.release(connection);
+			try {
+				DbUtils.close(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }

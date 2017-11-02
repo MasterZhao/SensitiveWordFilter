@@ -47,6 +47,9 @@ public class Page<T> {
 	public void setTotalItemNumber(long totalItemNumber){
 		this.totalItemNumber=totalItemNumber;
 	}
+	public long getTotalItemNumber(){
+		return this.totalItemNumber;
+	}
 	public boolean hasNext(){
 		if(getPageNo()<getTotalPageNumber()){
 			return true;

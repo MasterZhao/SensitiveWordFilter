@@ -8,77 +8,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+	#info{
+		background-color:#CCCCCC;
+	}
+	body{
+	background-color:#E8E8E8;
+	}
+	.title{
+	color:#C5C1AA;
+	text-shadow:3px 2px 3px #969696;
+	}
+	.mytable{
+	width:90%;
+	font-size: 18px;
+	}
+	.input-group{
+	width:12%;
+	}
+	span{
+	font-size: 40px;
+	text-shadow:3px 2px 3px #FAEBD7;
 
-span{
-	font-size: 45px;
-	text-shadow:3px 2px 3px #FAEBD7;
-	color:#8B5F65
-	
-}
-.docdiv{
-	
-	width:600px;
-	height:400px;
-	border:2px solid #000;
-	background:#FFFFE0;
-	float:left;
-	font-family: "楷体";
-	font-size: 20px;
-	padding:15px;
-	margin-left:10px;
-	margin-right:10px
-}
-#description{
-	width:300px;
-	height:30px;
-	overflow:auto;
-}
-.submit{
-color: #8B2500;
-wdith:90px;
-height:50px
-}
-.blackdoc{
-color:#CD0000;
-margin-top:40px;
-}
-.pass{
-color:#32CD32;
-margin-top:40px;
-}
-h4{
-	text-shadow:3px 2px 3px #FAEBD7;
-	color:#8B5F65
-}
-.passbutton{
-	width:100px;
-	height:22px;
-	color:#32CD32;
-	font-size:18px;
-	font-family: "楷体";
-}
-.blackdocbutton{
-	width:100px;
-	height:22px;
-	color:#CD0000;
-	font-size:18px;
-	font-family: "楷体";
-	margin-top: -20px;
 }
 #content{
-	width:550px;
 	height:100px;
 	font-size:20px;
-	overflow:scroll;
-	background-color: #C1FFC1
+	overflow-y:scroll;
+	/* background-color: #C1FFC1 */
 }
+	.panel{
+	width:45%;
+	float:left;	
+	margin-left:2%;
+	margin-right:2%
+	}
 </style>
 <script type="text/javascript" src="script/jquery-1.7.2.js"></script>
 <script type="text/javascript">
-$(function(){
-	var fontsize=$("font").size();
-	alert("共发现"+fontsize+"个疑似敏感词");
-})
+
 </script>
 </head>
 <body>
@@ -116,13 +83,34 @@ $(function(){
 		</c:if>
 		<h4>详情：</h4>
 		<div id="content">
-			${doc.content }
+			${doc.description }
 		</div>
 		</div>
 	</c:forEach>
 	</div>
 	<br>
-	
+	<ul class="pagination">
+	<li><a href="queryServlet?method=getWordPage&pageNo=1&wordSymbol=${wordSymbol }">首页</a></li>
+</ul>
+
+<ul class="pagination">
+	<c:if test="${wordpage.hasPrev()==true }">
+		<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.getPrev() }&wordSymbol=${wordSymbol}">&laquo;</a></li>
+	</c:if>
+	<li class="active"><a href="#">${wordpage.pageNo }</a></li>
+	<c:if test="${wordpage.hasNext()==true }">
+		<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.getNext() }&wordSymbol=${wordSymbol}">&raquo;</a></li>
+	</c:if>
+</ul>
+
+<ul class="pagination">
+	<li><a href="queryServlet?method=getWordPage&pageNo=${wordpage.totalPageNumber}&wordSymbol=${wordSymbol}">尾页：${wordpage.totalPageNumber }</a></li>
+</ul>
+<div class="input-group">
+			<span class="input-group-addon">跳转到</span>
+			<input type="text" class="form-control" id="pageNo">
+			<span class="input-group-addon">页</span>
+</div>
 	<c:if test="${empty docs }">
 		<h3>本次搜索没有发现非法文档</h3>
 	</c:if>

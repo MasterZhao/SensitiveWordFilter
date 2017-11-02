@@ -1,0 +1,32 @@
+//word-----wordlevel-----count
+select (select DISTINCT word )as word,
+(select wordlevel from senword w where w.word=taskdetails.word) as wordlevel,
+(select count(word)) as count from taskdetails where taskid=18 group by word
+
+//wordlevel-----count
+select 
+(select distinct wordlevel from senword w where w.word=taskdetails.word) as wordlevel,
+(select count(word)) as count from taskdetails where taskid=18 group by wordlevel
+
+
+show variables like "max_connections";
+max_connections=200;
+
+从taskdetails表中查询某关键词在哪些文档中出现
+select id,title,docpath,docsymbol from doc where docpath in
+(select distinct docpath from taskdetails where word='江泽民' group by docpath) 
+
+
+
+
+//创建wordtype表
+create table `wordtype`(
+	`id` int(10) NOT NULL auto_increment,
+	`wordtype` varchar(50) NOT NULL UNIQUE KEY,
+	PRIMARY KEY(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+//从任务表中查询wordtype的相关记录
+select 
+(select distinct wordtype from wordtype t where t.id=(select wordtype from senword w where w.word=taskdetails.word )) as wordtype,
+(select count(word)) as count from taskdetails where taskid=18 group by wordtype

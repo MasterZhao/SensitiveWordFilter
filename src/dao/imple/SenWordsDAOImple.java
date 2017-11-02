@@ -2,7 +2,6 @@ package dao.imple;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.List;
 
 import po.SenWord;
@@ -58,7 +57,7 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 	@Override
 	public List<SenWord> getWordsInUse() {
 		String sql="select id,word,wordsymbol,wordlevel from senword where wordsymbol=1";
-		return new ArrayList(queryForList(sql));
+		return queryForList(sql);
 	}
 
 	@Override
@@ -70,7 +69,7 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 	@Override
 	//获取当前页码下所有内容和分页信息
 	public Page<SenWord> getPage(int pageNo) {
-		Page page=new Page<>(pageNo);
+		Page<SenWord> page=new Page<>(pageNo);
 		//调用getTotalNumber()方法，传递总数量给Page
 		page.setTotalItemNumber(getTotalNumber());
 		//获取当前页存放的的list
@@ -89,8 +88,13 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 	@Override
 	//每页显示10条数据
 	public List<SenWord> getPageList(int pageNo) {
-		String sql="select id,word,wordsymbol,wordlevel from senword limit ?,? ";
-		return queryForList(sql, (pageNo-1)*10,10);
+		String sql="select id,word,wordsymbol,wordlevel from senword order by id desc limit ?,? ";
+		if(pageNo==0){
+			return queryForList(sql, 0,10);
+		}else{
+			return queryForList(sql, (pageNo-1)*10,10);
+		}
+		
 	}
 
 	//获取启用的敏感词分页
@@ -115,7 +119,6 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 		String sql="select id,word,wordsymbol,wordlevel from senword where wordsymbol=1 limit ?,? ";
 		return queryForList(sql, (pageNo-1)*10,10);
 	}
-
 	
 	@Override
 	public Page<SenWord> getStopWordPage(int pageNo) {
@@ -126,7 +129,6 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 	}
 
 	@Override
-	
 	public long getTotalStopWordNumber() {
 		String sql="select count(id) from senword where wordsymbol=0";
 		return getSingleValue(sql);
@@ -138,4 +140,32 @@ public class SenWordsDAOImple extends BaseDAO<SenWord> implements SenWordsDAO {
 		return queryForList(sql, (pageNo-1)*10,10);
 	}
 
+	public List<SenWord> getWordsFromTaskDetails(int taskId){
+		String sql="select distinct word from taskdetails where taskId=?";
+		return queryForList(sql, taskId);
+	}
+
+	@Override
+	public SenWord getWord(String word) {
+		String sql="select id,word,wordsymbol,wordlevel from senword where word=?";
+		return query(sql, word);
+	}
+
+	@Override
+	public int getWordSymbol(Integer id) {
+		String sql="select wordsymbol from senword where id=?";
+		return getSingleValue(sql, id);
+	}
+
+	@Override
+	public void deleteAll() {
+		String sql="delete from senword";
+		update(sql);
+	}
+
+//	@Override
+//	public List<SenWord> getWordUseLike(String word) {
+//		String sql="select id,word,wordsymbol,wordlevel from senword where word like  '%?%' ";
+//		return queryForList(sql, word);
+//	}
 }

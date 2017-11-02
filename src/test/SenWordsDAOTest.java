@@ -13,6 +13,7 @@ import dao.imple.SenWordsDAOImple;
 public class SenWordsDAOTest {
 
 	SenWordsDAO senWordsDAO=new SenWordsDAOImple();
+	
 	@Test
 	public void testGetWords() {
 		List<SenWord> senWordList= senWordsDAO.getWords();
@@ -108,5 +109,22 @@ public class SenWordsDAOTest {
 	public void testGetStartWordPage(){
 		System.out.println(senWordsDAO.getStopWordPage(1).getPageNo());
 		System.out.println(senWordsDAO.getStopWordPage(1).getList());
+	}
+	@Test
+	public void testGetWordsFromTaskDetails(){
+		int taskId=18;
+		System.out.println(senWordsDAO.getWordsFromTaskDetails(taskId));
+	}
+	@Test
+	public void testGetWord(){
+		System.out.println(senWordsDAO.getWord("±‰Ã¨"));
+	}
+	@Test
+	public void testGetWordSymbol(){
+		System.out.println(senWordsDAO.getWordSymbol(61));
+	}
+	@Test
+	public void testDeleteAll(){
+		senWordsDAO.deleteAll();
 	}
 }

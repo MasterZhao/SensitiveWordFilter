@@ -24,6 +24,8 @@ public interface SenWordsDAO {
 	//删除敏感词
 	public abstract void delete(Integer id);
 	
+	public abstract int getWordSymbol(Integer id);
+	
 	//以下是分页相关方法
 	//获取Page<SenWord>，在页面上显示其中的List
 	public abstract Page<SenWord> getPage(int pageNo);
@@ -40,6 +42,12 @@ public interface SenWordsDAO {
 	public abstract Page<SenWord> getStopWordPage(int pageNo);
 	public abstract long getTotalStopWordNumber();
 	public abstract List<SenWord> getStopWordPageList(int pageNo);
+	//从任务表中读取某一任务中出现的敏感词
+	public abstract List<SenWord> getWordsFromTaskDetails(int taskId);
 	
+//	public abstract List<SenWord> getWordUseLike(String word);
 	
+	public abstract SenWord getWord(String word);
+	
+	public abstract void deleteAll();
 }

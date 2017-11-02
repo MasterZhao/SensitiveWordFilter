@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">  
 <script src="script/jquery-3.2.1.min.js"></script>
 <script src="script/bootstrap.min.js"></script>
@@ -37,16 +36,17 @@
 	<nav class="navbar navbar-default onthetop" role="navigation">
 		 <div class="container-fluid"> 
    			<div class="navbar-header">
-        	<a class="navbar-brand title" href="#">敏&nbsp;感&nbsp;词&nbsp;过&nbsp;滤&nbsp;系&nbsp;统</a>
+        	<a class="navbar-brand title" href="#">教&nbsp;育&nbsp;资&nbsp;源&nbsp;审&nbsp;核&nbsp;系&nbsp;统</a>
    			</div>
    		 	<div> 
-        	<a href="#"><p class="navbar-text navbar-right">点击此处查看操作说明</p></a>
+        	<!-- <a href="#"><p class="navbar-text navbar-right">点击此处查看操作说明</p></a> -->
     		</div>
 		</div>
 	</nav>
 	<!-- 第二行导航栏 -->
  <ul class="nav nav-tabs nav-justified">
 	<li><a href="index.jsp">首页</a></li>
+	<li><a href="searchbyword.jsp">手动查询敏感词</a></li>
 	<li class="dropdown">
 	 <a class="dropdown-toggle" data-toggle="dropdown" href="">
         敏感词管理<span class="caret"></span>
@@ -54,18 +54,33 @@
         <li><a href="queryServlet?method=getWordPage&pageNo=1">全部敏感词</a></li>
         <li><a href="queryServlet?method=getWordPage&pageNo=1&wordSymbol=0">已停用敏感词</a></li>
         <li><a href="queryServlet?method=getWordPage&pageNo=1&wordSymbol=1">已启用敏感词</a></li>
+        <li><a href="upload.jsp">导入敏感词</a></li>
+        <li><a href="downloadServlet?method=downloadWords">导出敏感词</a></li>
       </ul>
 	</li>
 	<li class="dropdown">
 	 <a class="dropdown-toggle" data-toggle="dropdown" href="">
         资源状态管理<span class="caret"></span>
         <ul class="dropdown-menu">
-        <li><a href="queryServlet?method=getBlackList&pageNo=1">查看黑名单</a></li>
-        <li><a href="queryServlet?method=getPassDoc&pageNo=1">查看已通过审核的资源</a></li>
-        <li><a href="queryServlet?method=getAllDoc&pageNo=1">浏览全部资源</a></li>
+        <li>
+        <a href="queryServlet?method=getBlackListPage&pageNo=1">查看黑名单</a>
+        </li>
+        <li><a href="queryServlet?method=getPassDocPage&pageNo=1">查看已通过审核的资源</a></li>
+        <li><a href="queryServlet?method=getAllDocPage&pageNo=1">浏览全部资源</a></li>
+        <li><a href="queryServlet?method=getDocWithoutCheckPage&pageNo=1">待审核资源</a></li>
       </ul>
 	</li>
-	<li><a href="#">任务日志</a></li>
+	
+	<li class="dropdown">
+	 <a class="dropdown-toggle" data-toggle="dropdown" href="">
+        任务日志<span class="caret"></span>
+        <ul class="dropdown-menu">
+        <li>
+        <a href="queryServlet?method=getAllTaskPage&pageNo=1">任务记录</a>
+        </li>
+        <li><a href="queryServlet?method=getTaskReport&pageNo=1">任务报告</a></li>
+      </ul>
+	</li>
 </ul>
 
 </body>

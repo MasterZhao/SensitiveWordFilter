@@ -37,24 +37,35 @@
 	text-shadow:3px 2px 3px #FAEBD7;
 	color:#668B8B;
 }
-	#name{
-		width:300px;
+	#path{
+		width:80%;
 	}
-	
 	.startnow{
 		margin-left: -25px;
+	}
+	.form-inline{
+		margin-bottom: 40px;
+	}
+	.form-group{
+		width: 100%;
 	}
 </style>
 <script type="text/javascript" src="script/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$(".index").click(function(){
-			var t=$(":text");
+			var t=$("input[ name='path' ]");
 			if(t.val()==""){
 				alert("输入不能为空");
 				return false;
 			}
+			var length=t.val().length;
+			if(length>220){
+				alert("输入路径过长，请检查");
+				return false;
+			}
 		})
+		
 		
 	})
 </script>
@@ -63,23 +74,20 @@
 <body>
 
 <center>
-<br><br>
+<br><br><br><br>
 <div class="input-path">
-<span>输入文档目录路径，解析目录下所有文档</span>
+<span>输入文档目录路径，抓取目录下所有文档并审核</span>
+<h4>（支持的格式：pdf,word,excel,ppt）</h4>
 <br>
 实例：D:\SolrApplication\solrhome\collection2\doc
+<br><br>
 <form action="indexServlet?method=createIndex" method="post" target="_blank" class="form-inline" role="form">
 	<div class="form-group">
-	<input type="text" name="path" class="form-control" id="name" 
-			   placeholder="在此输入路径">
-	<input type="submit" value="开始解析文档" class="btn btn-default index">
+	<input type="text" name="path" class="form-control" id="path" 
+			   placeholder="在此输入本地目录路径">
+	<input type="submit" value="开始审核" class="btn btn-default index">
 	</div>
 	</form>
-<br>
-<div class="startsearch">
-<a href="queryServlet?method=startSearch" target="_blank"><h3><button class="btn btn-default startnow">直接从现有索引库中搜索敏感词</button></h3></a>
-<br>
-</div>
 </div>
 <br>
 </center>

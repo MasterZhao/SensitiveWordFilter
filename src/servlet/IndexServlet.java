@@ -32,7 +32,6 @@ public class IndexServlet extends HttpServlet {
 			Method method=getClass().getDeclaredMethod(methodName, HttpServletRequest.class,HttpServletResponse.class);
 			method.setAccessible(true);
 			method.invoke(this, request,response);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -40,24 +39,34 @@ public class IndexServlet extends HttpServlet {
 	}
 
 	protected void createIndex(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException{
-		
-		String path=request.getParameter("path");
+		String pathStr=request.getParameter("path");
+		String path=pathStr.trim();
 		System.out.println(path);
 		long size=0;
 		try {
-			//执行createIndex操作
-			indexService.deleteAllIndex();
+			//为了提高系统创建索引的速度，在执行操作前不再删除之前的索引文件
+			//indexService.deleteAllIndex();
 			size=indexService.createIndex(path);
 			//对Doc表执行写入操作
 			indexService.writeDocIntoDataBase();
+			//将待审核的文档做标记
+			indexService.signDocWithoutCheck();
+			//写入任务详情
+			indexService.WriteTaskDetails();
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendRedirect(request.getContextPath()+"/error-1.jsp");
 			return;
 		}
-			request.setAttribute("size", size);
-			request.getRequestDispatcher("success.jsp").forward(request, response);
+			//request.setAttribute("size", size);
+			//request.getRequestDispatcher("success.jsp").forward(request, response);
+		//在执行完任务后，跳转进入待审核资源界面，查看当前待审核任务
+		if(size>0){
+			request.getRequestDispatcher("queryServlet?method=getDocWithoutCheckPage&pageNo=1&size="+size).forward(request, response);
+		}else{
+			response.sendRedirect(request.getContextPath()+"/error-1.jsp");
 		}
+	}
 	
 	protected void deleteAllIndex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SolrServerException {
 		boolean sign=indexService.deleteAllIndex();

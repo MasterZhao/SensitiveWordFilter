@@ -2,50 +2,41 @@ package po;
 
 public class TaskDetail {
 
-	private String docpath;
 	private String word;
-	private Integer num;
-	private Integer taskId;
-	public String getDocpath() {
-		return docpath;
-	}
-	public void setDocpath(String docpath) {
-		this.docpath = docpath;
-	}
+	private String docpath;
+	private int taskId;
 	public String getWord() {
 		return word;
 	}
 	public void setWord(String word) {
 		this.word = word;
 	}
-	public Integer getNum() {
-		return num;
+	public String getDocpath() {
+		return docpath;
 	}
-	public void setNum(Integer num) {
-		this.num = num;
+	public void setDocpath(String docpath) {
+		this.docpath = docpath;
 	}
-	public Integer getTaskId() {
+	public int getTaskId() {
 		return taskId;
 	}
-	public void setTaskId(Integer taskId) {
+	public void setTaskId(int taskId) {
 		this.taskId = taskId;
 	}
-	//构造方法
-	public TaskDetail() {
-		super();
+	public TaskDetail(){
+		
 	}
 	
-	public TaskDetail(String docpath, String word, Integer num, Integer taskId) {
+	public TaskDetail(String word, String docpath, int taskId) {
 		super();
-		this.docpath = docpath;
 		this.word = word;
-		this.num = num;
+		this.docpath = docpath;
 		this.taskId = taskId;
 	}
+	
 	@Override
 	public String toString() {
-		return "TaskDetail [docpath=" + docpath + ", word=" + word + ", num="
-				+ num + ", taskId=" + taskId + "]";
+		return "TaskDetail [word=" + word + ", docpath=" + docpath
+				+ ", taskId=" + taskId + "]";
 	}
-	
 }
